@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-green: #00ff87;
+  --neon-lime: #c6ff00;
+  --neon-amber: #ffb800;
+  --pitch-950: #040d08;
+  --pitch-900: #071510;
+  --pitch-800: #0d2318;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background-color: var(--pitch-950);
+  color: #e8f5e9;
+  font-family: 'DM Sans', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--pitch-900); }
+::-webkit-scrollbar-thumb { background: #1a4030; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--neon-green); }
+
+/* Glow effects */
+.glow-green { box-shadow: 0 0 20px rgba(0,255,135,0.25); }
+.glow-amber { box-shadow: 0 0 20px rgba(255,184,0,0.25); }
+.text-glow { text-shadow: 0 0 20px rgba(0,255,135,0.5); }
+
+/* Live indicator */
+@keyframes livebeat {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+.live-dot { animation: livebeat 1.2s ease-in-out infinite; }
+
+/* Ticker */
+.ticker-wrap { overflow: hidden; white-space: nowrap; }
+.ticker-content { display: inline-block; animation: ticker 40s linear infinite; }
+.ticker-content:hover { animation-play-state: paused; }
+
+@keyframes ticker {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Noise overlay for depth */
+.noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,255,135,0.1);
+}
+
+/* Staggered animation */
+.stagger-1 { animation: slideUp 0.5s ease-out 0.1s both; }
+.stagger-2 { animation: slideUp 0.5s ease-out 0.2s both; }
+.stagger-3 { animation: slideUp 0.5s ease-out 0.3s both; }
+.stagger-4 { animation: slideUp 0.5s ease-out 0.4s both; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
